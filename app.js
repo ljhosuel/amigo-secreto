@@ -2,21 +2,47 @@
 
 let amigos = [];
 
-function agregarAmigo() {
+function agregarAmigo() { 
     const inputAmigo = document.getElementById('amigo');
-    const nombreAmigo = inputAmigo.ariaValueMax.trim();
+    const nombreAmigo = inputAmigo.value.trim();
 
-    if (nombre === "") {
+    if (nombreAmigo == "") {
         alert("Porfavor, ingrese un nombre.");
         return;
     }
 
     if (amigos.includes(nombreAmigo)) {
-        alert(`El nombre ${nombreAmigo}` ya se encuentra en lista);
+        alert(`El nombre "${nombreAmigo}" ya se encuentra en lista.`);
         return;
     }
 
     amigos.push(nombreAmigo);
-    inputAmigo.ariaValue = "";
+    inputAmigo.value = "";
     actualizarLista();
+}
+   
+function actualizarLista() {
+    const listaAmigos = document.getElementById('listaAmigos');
+
+    listaAmigos.innerHTML = "";
+
+    for(let i = 0; i < amigos.length; i++){
+        const li = document.createElement('li');
+        li.textContent = amigos[i];
+        listaAmigos.appendChild(li);
+    }
+}
+
+function sortearAmigo () {
+    if (amigos.length == 0) {
+        alert("No hay amigos disponibles para sortear, Agregar uno.");
+        return;
+    }
+
+    const indiceAleatorio = Math.floor(Math.random() * amigos.length);
+
+    const amigoSorteado = amigos[indiceAleatorio];
+    
+    const resultado = document.getElementById('resultado');
+    resultado.innerHTML = `Amigo sorteado: <strong>${amigoSorteado}</strong>`;
 }
